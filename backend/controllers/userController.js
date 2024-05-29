@@ -1,4 +1,4 @@
-const {getUsers,getUserById,newUser,updateUser,destroyUser,addItemToCart, removeItemFromCart,getUserByEmail} = require("../Models/users");
+const {getUsers,getUserById,newUser,updateUser,destroyUser,addItemToCart, removeItemFromCart,getUserByEmail} = require("../models/users"); 
 const jwt = require('jsonwebtoken'); //so i know when users are logged in 
 const bcrypt = require('bcrypt')
 require('dotenv').config()

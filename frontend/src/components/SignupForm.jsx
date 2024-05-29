@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState, useRef } from "react";
-import FetchData from "../../server/utils/FetchData";
 
 const SignupForm = () => {
   const submitter = useRef();
