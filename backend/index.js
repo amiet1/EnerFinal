@@ -11,7 +11,7 @@ const {
 const express = require("express");
 const path = require("path"); // used to make absolute path to static folder
 // const database = require("./database");
-const userRouter = require('./Routes/userRoutes')
+const userRouter = require('./routes/userRoutes')
 
 const cors = require('cors')
 
