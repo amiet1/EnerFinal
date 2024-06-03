@@ -1,4 +1,3 @@
-import React from 'react'
 
 const CartCheckout = () => {
   return (
@@ -7,7 +6,7 @@ const CartCheckout = () => {
         
       
     </div>
-  )
-}
+  );
+};
 
 export default CartCheckout;

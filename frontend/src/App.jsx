@@ -1,12 +1,12 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './components/Home'
+import Home from './components/Home';
 import LoginForm from "./components/Login";
 import Navbar from "./components/Navbar";
 import SignupForm from "./components/SignupForm";
 
 
-import './App.css'
+import './App.css';
 
 //*manage by state by using useState
 
@@ -23,7 +23,7 @@ function App() {
     </Routes>
   
    </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

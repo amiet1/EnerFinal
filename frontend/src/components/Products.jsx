@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Products = () => {
 
@@ -6,8 +6,8 @@ const Products = () => {
     <div>
       
     </div>
-  )
-}
+  );
+};
 
 export default Products;
 

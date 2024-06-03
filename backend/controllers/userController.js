@@ -1,3 +1,4 @@
+const User = require('../models/users');
 const {
   getUsers,
   getUserById,
@@ -7,35 +8,37 @@ const {
   addItemToCart,
   removeItemFromCart,
   getUserByEmail,
-} = require("../models/users");
-const jwt = require("jsonwebtoken"); //so i know when users are logged in
-const bcrypt = require("bcrypt");
-require("dotenv").config();
+} = User;
+const jwt = require('jsonwebtoken'); // so i know when users are logged in
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const getAllUsers = async (req, res) => {
   try {
     const result = await getUsers();
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
 
 const getById = async (req, res) => {
-  const id = req.get("id");
+  const id = req.get('id');
   try {
     const result = await getUserById(id);
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
 
 const createUser = async (req, res) => {
-  const { first_name, last_name, phone_number, password, email, address } =
-    req.body;
+  const { first_name, last_name, phone_number, password, email, address }
+    = req.body;
   console.log(req.body);
   const hashPassword = await bcrypt.hash(password, 10);
   try {
@@ -45,11 +48,12 @@ const createUser = async (req, res) => {
       phone_number,
       hashPassword,
       email,
-      address
+      address,
     );
     const token = jwt.sign({ email }, process.env.AUTH_KEY);
     res.json({ result, token });
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
     res.status(500).send();
   }
@@ -61,8 +65,8 @@ const login = async (req, res) => {
     const user = await getUserByEmail(email);
 
     if (!user.id) {
-      //if user exists
-      return res.status(401).send("User Does Not Exist.");
+      // if user exists
+      return res.status(401).send('User Does Not Exist.');
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
 
@@ -70,8 +74,9 @@ const login = async (req, res) => {
       const token = jwt.sign({ email: user.email }, process.env.AUTH_KEY);
       res.json({ user, token });
     }
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
@@ -81,9 +86,9 @@ const login = async (req, res) => {
 // }
 
 const updateUserById = async (req, res) => {
-  const id = req.get("id");
-  const { first_name, last_name, phone_number, password, email, address } =
-    req.body;
+  const id = req.get('id');
+  const { first_name, last_name, phone_number, password, email, address }
+    = req.body;
   try {
     const result = await updateUser(
       id,
@@ -92,46 +97,50 @@ const updateUserById = async (req, res) => {
       phone_number,
       password,
       email,
-      address
+      address,
     );
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
 
 const deleteUser = async (req, res) => {
-  const id = req.get("id");
+  const id = req.get('id');
   try {
     const result = await destroyUser(id);
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
 
-//addItemToCart
+// addItemToCart
 const addItem = async (req, res) => {
   const { items, cart_id } = req.body;
   try {
     const result = await addItemToCart(items, cart_id);
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };
 
-//removeItemFromCart
+// removeItemFromCart
 const removeItem = async (req, res) => {
-  const id = req.get("id");
+  const id = req.get('id');
   try {
     const result = await removeItemFromCart(id);
     res.json(result);
-  } catch (error) {
-    console.log(error)
+  }
+  catch (error) {
+    console.log(error);
     res.status(500).send();
   }
 };

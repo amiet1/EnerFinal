@@ -1,7 +1,7 @@
 // class AUTH {
 
 //     const isValidPssword = () => {
-        
+
 //     }
 // }
 

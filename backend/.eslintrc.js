@@ -5,4 +5,4 @@ module.exports = {
   rules: {
     '@stylistic/semi': ['warn', 'always'],
   },
-}
+};

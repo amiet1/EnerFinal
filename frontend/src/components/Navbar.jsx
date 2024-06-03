@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Navbar = () => {
   return (
@@ -12,8 +12,8 @@ const Navbar = () => {
         </div>
       
     </div>
-  )
-}
+  );
+};
 //connect routes for each page 
 //add hover features 
 //add componet to top of page 
