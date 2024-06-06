@@ -1,13 +1,19 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <div>
         <div>
             <ul>
-                <option value="home_page">Home</option> 
-                <option value="my_cart">My Cart</option>
-                <option value="shop">Shop</option>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="CartCheckout"> My Cart</Link>
+              </li>
+              <li>
+                <Link to="Products">Products</Link>
+              </li>
             </ul>=
         </div>
       
