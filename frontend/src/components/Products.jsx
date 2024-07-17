@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 const products = [
@@ -76,46 +76,48 @@ const products = [
 
 
 const Products = () => {
-  useEffect(async () => {
-    const response = await fetch('https://ener-tahj.commercelayer.io/api/skus', {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
+    const [isLoading, setIsLoading] = useState(true)
+    
+  useEffect(() => {
+    if(!isLoading) {
+        fetch('https://ener-tahj.commercelayer.io/api/skus', {
+            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/vnd.api+json",
+              "Authorization": `Bearer ${localStorage.getItem('token')}`
+            },
+          }).then(response => response.json()).then(json => console.log(json))
+    }
+  }, [isLoading])
+
+
+
+  useEffect(() => {
+    fetch('https://auth.commercelayer.io/oauth/token', {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/vnd.api+json",
         //   "Authorization": "Bearer 521lMeRAFMkgDI89SqLU6DtviZSgKp5vsuRNId3bKwI"
         },
-      });
-      console.log(response.json())
+        body: JSON.stringify({
+          client_id: '521lMeRAFMkgDI89SqLU6DtviZSgKp5vsuRNId3bKwI',
+          grant_type: 'client_credentials',
+          client_secret: 'V3jZov6IRmSwLQ_V0e1H71sccvvPda2304ffIpPuyrs',
+        })
+      }).then(response => response.json()).then(json => {
+        localStorage.setItem('token', json.access_token)
+        setIsLoading(false)
+    })
   }, [])
-
-  useEffect(async () => {
-    const response = await fetch('https://dashboard.commercelayer.io/oauth/authorize?client_id=521lMeRAFMkgDI89SqLU6DtviZSgKp5vsuRNId3bKwI&response_type=code', {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   "Accept": "application/vnd.api+json",
-        // //   "Authorization": "Bearer 521lMeRAFMkgDI89SqLU6DtviZSgKp5vsuRNId3bKwI"
-        // },
-        // body: {
-        //   //client_id: '521lMeRAFMkgDI89SqLU6DtviZSgKp5vsuRNId3bKwI',
-        // //   grant_type: '',
-        // //   client_secret: '',
-        //   redirect_uri: '/',
-        //   response_type: 'code'
-        // }
-      });
-      
-      console.log(response.json())
-  }, [])
-
-
 
   return (
     <div className='product_cards'>
       {products.map((product) => (
-        <Link to={`/product/${product.id}`}>
+        <Link key={product.id} to={`/product/${product.id}`}>
             <div className="product_card">
                 <h2>{product.name}</h2>
                 <p>{product.description}</p>
